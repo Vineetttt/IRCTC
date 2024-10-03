@@ -8,3 +8,7 @@ def validate_username(username):
     if len(username) < 3 or len(username) > 50:
         return False, "Username must be between 3 and 50 characters."
     return True, ""
+
+def fetch_user_password(cursor, username):
+    cursor.execute('SELECT password FROM users WHERE username = %s', (username,))
+    return cursor.fetchone()
