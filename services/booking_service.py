@@ -1,7 +1,9 @@
+from flask import jsonify
 from utils.db import get_db
 from utils.error_handling import handle_db_error, log_unexpected_error
 from utils.train_utils import train_number_exists
 from utils.user_utils import username_exists
+from mysql.connector import Error as MySQL_Error
 
 def book_seat(data):
     db = get_db()
@@ -53,6 +55,41 @@ def book_seat(data):
         return handle_db_error(e)
     except Exception as e:
         db.rollback()  
+        return log_unexpected_error(e)
+    finally:
+        cursor.close()
+        db.close()
+
+
+def get_booking_by_id(booking_id):
+    db = get_db()
+    cursor = db.cursor()
+
+    if booking_id <= 0:
+        return {"error": "Invalid booking ID. It must be a positive integer."}, 400
+
+    try:
+        # Correcting the field name to 'created_at'
+        cursor.execute('SELECT booking_id, username, train_number, seats_booked, created_at FROM bookings WHERE booking_id = %s', (booking_id,))
+        booking_details = cursor.fetchone()
+
+        if booking_details is None:
+            return None
+
+        # Ensure created_at is safely converted
+        booking_time = booking_details[4].isoformat() if booking_details[4] else None
+
+        return {
+            "booking_id": booking_details[0],
+            "username": booking_details[1],
+            "train_number": booking_details[2],
+            "seats_booked": booking_details[3],
+            "booking_time": booking_time  # Using 'created_at' as 'booking_time'
+        }
+
+    except MySQL_Error as e:
+        return handle_db_error(e)
+    except Exception as e:
         return log_unexpected_error(e)
     finally:
         cursor.close()
