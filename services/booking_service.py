@@ -2,8 +2,9 @@ from flask import jsonify
 from utils.db import get_db
 from utils.error_handling import handle_db_error, log_unexpected_error
 from utils.train_utils import train_number_exists
-from utils.user_utils import username_exists
+from utils.auth_utils import username_exists
 from mysql.connector import Error as MySQL_Error
+
 
 def book_seat(data):
     db = get_db()

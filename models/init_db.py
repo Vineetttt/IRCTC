@@ -1,4 +1,4 @@
-from .user_model import create_user_table
+from .auth_model import create_user_table
 from .train_model import create_train_table
 from .booking_model import create_booking_table
 

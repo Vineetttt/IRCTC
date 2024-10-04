@@ -4,13 +4,21 @@ from .config import Config
 from utils.db import close_db, get_db
 from flask_jwt_extended import JWTManager
 from models.init_db import initialize_database
-from routes import user_routes, admin_routes, train_routes
-
+from routes import auth_routes, admin_routes, train_routes
+import logging
 
 def create_app():
     app = Flask(__name__)
     CORS(app)
     app.config.from_object(Config)
+
+    logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    handlers=[
+                        logging.FileHandler("app.log"),  
+                        logging.StreamHandler()  
+                    ])
+    logger = logging.getLogger(__name__)
 
     # Initialize JWT Manager
     jwt = JWTManager(app)
@@ -22,7 +30,7 @@ def create_app():
         initialize_database(db)  # Initialize the database tables
 
     # Register blueprints for routes
-    app.register_blueprint(user_routes.bp)
+    app.register_blueprint(auth_routes.bp)
     app.register_blueprint(admin_routes.bp)
     app.register_blueprint(train_routes.bp)
 
