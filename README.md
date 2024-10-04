@@ -6,6 +6,7 @@ This API simulates a railway management system, allowing users to check train av
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Setup Instructions](#setup-instructions)
+- [Assumptions](#assumptions)
 
 ## Features
 - User registration and login
