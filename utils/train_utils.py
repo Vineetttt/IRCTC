@@ -15,24 +15,23 @@ def validate_train_data(data):
 
     return True, ""
 
-
 def train_number_exists(cursor, train_number):
     cursor.execute('SELECT train_number FROM trains WHERE train_number = %s', (train_number,))
     return cursor.fetchone() is not None
 
-def fetch_trains_by_route(source, destination):
-    db = get_db()
-    cursor = db.cursor()
-
+def insert_train(cursor, data):
     try:
-        cursor.execute('''
-            SELECT train_number, name, source, destination, total_seats, available_seats
-            FROM trains
-            WHERE source = %s AND destination = %s
-        ''', (source, destination))
+        cursor.execute(
+            'INSERT INTO trains (train_number, name, source, destination, total_seats, available_seats) VALUES (%s, %s, %s, %s, %s, %s)',
+            (data['train_number'], data['name'], data['source'], data['destination'], data['total_seats'], data['total_seats'])
+        )
+        return {"message": "Train added successfully.", "payload": data}, 201
+    except Exception as e:
+        return {"error": str(e)}
+
+def fetch_trains(cursor, source, destination):
+    try:
+        cursor.execute('SELECT * FROM trains WHERE source = %s AND destination = %s', (source, destination))
         return cursor.fetchall()
     except Exception as e:
-        return e  
-    finally:
-        cursor.close()
-        db.close()
+        return {"error": str(e)}

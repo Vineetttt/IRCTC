@@ -1,2 +1,3 @@
 .env
 race_checker.py
+app.log
