@@ -32,8 +32,8 @@ This API simulates a railway management system, allowing users to check train av
 ### Installation Steps
 1. **Clone the repository**:
    ```bash
-   git clone https://your-repo-url.git
-   cd your-repo-directory
+   git clone https://github.com/Vineetttt/IRCTC.git
+   cd your-directory
    
 2. **Set up Environment Variables:**
    ```bash
