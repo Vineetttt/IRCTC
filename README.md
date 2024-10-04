@@ -36,8 +36,8 @@ This API simulates a railway management system, allowing users to check train av
    
 2. **Set up Environment Variables:**
    ```bash
-   export MYSQL_USER= <YOUR_USERNAME>
-   export MYSQL_PASSWORD= <<YOUR_SQL_PASSWORD>
+   export MYSQL_USER= YOUR_SQL_USERNAME
+   export MYSQL_PASSWORD= YOUR_SQL_PASSWORD
    export MYSQL_DB=irctc
    export MYSQL_HOST=localhost
    export MYSQL_PORT=3306
@@ -45,4 +45,14 @@ This API simulates a railway management system, allowing users to check train av
    export SECRET_KEY='1234567890abcdef'
 
   Note that the API_KEY and SECRET_KEY varibales are dummy and just for implementation purpose.
+
+3. **Install required packages:**
+     ```bash
+     pip3 install -r requirements.txt
+
+4. **Run the application:**
+   ```bash
+   python3 app.py
+
+The tables will be created automatically upon running the application for the first time.
 
