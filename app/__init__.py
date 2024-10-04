@@ -4,7 +4,7 @@ from .config import Config
 from utils.db import close_db, get_db
 from flask_jwt_extended import JWTManager
 from models.init_db import initialize_database
-from routes import auth_routes, admin_routes, train_routes
+from routes import auth_routes, admin_routes, train_routes, booking_routes
 import logging
 
 def create_app():
@@ -33,6 +33,7 @@ def create_app():
     app.register_blueprint(auth_routes.bp)
     app.register_blueprint(admin_routes.bp)
     app.register_blueprint(train_routes.bp)
+    app.register_blueprint(booking_routes.bp)
 
     @app.teardown_appcontext
     def teardown_db(exception):
