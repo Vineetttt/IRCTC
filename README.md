@@ -26,7 +26,6 @@ This API simulates a railway management system, allowing users to check train av
 ### Prerequisites
 - Python 3.x
 - MySQL server running
-- Virtual environment (optional but recommended)
 
 ### Installation Steps
 1. **Clone the repository**:
@@ -56,3 +55,10 @@ This API simulates a railway management system, allowing users to check train av
 
 The tables will be created automatically upon running the application for the first time.
 
+### Assumptions
+- Only the endpoints specified in the requirements are implemented.
+- Basic CRUD operations for each role can be added later if necessary.
+- Users and admins are managed in the same table using a role column.
+- Each booking is connected to a user and a specific train.
+- Train information could include more details like departure and arrival times, but is not included in this implementation.
+- All functionalities are managed within a single database without sharding or distribution.
